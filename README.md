@@ -1,2 +1,2 @@
 # blog_server
-个人博客后台
+个人博客api

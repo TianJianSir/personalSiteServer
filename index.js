@@ -1,20 +1,18 @@
 var express = require('express');
 var app = express();
+var routes = require('./routes/index')
 
-app.get('/api/token', function (req, res) {
-    res.send('this is token');
-})
+// 设置端口
+app.set('port',(process.env.PORT || 9090));
+// 设置响应头
+app.use("*", function(request, response, next) {
+    response.writeHead(200, { "Content-Type": "application/json;charset=utf-8" });
+    next();
+});
 
-app.get('/api/interface', function (req, res) {
-    res.send('this is interface');
-})
+routes(app)
 
-app.post('/api/login', function (req, res) {
-    // todo 操作mongdb
-
-})
-
-var server = app.listen(9090, function () {
+var server = app.listen(app.get('port'), function () {
 
     var host = server.address().address
     var port = server.address().port
