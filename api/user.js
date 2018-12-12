@@ -10,7 +10,6 @@ const dbName = 'blogs';
 
 router.get('/',function(req,res){
     MongoClient.connect(url, function(err, client) {
-        assert.equal(null, err);
         console.log("Connected successfully to server");
        
         const db = client.db(dbName);
