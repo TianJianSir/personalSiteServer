@@ -13,16 +13,18 @@ router.get('/',function(req,res){
         console.log("Connected successfully to server");
        
         const db = client.db(dbName);
-        console.log(db)
        
-        client.close();
-
-        let data = {
-            username: 'this is user',
-            sex: 'man',
-            address: '上海'
-        }
-        res.end(JSON.stringify(data))
+        db.collection("user"). find({}).toArray(function(err, result) { // 返回集合中所有数据
+            if (err) throw err;
+            console.log(result);
+            let data = {
+                username: 'this is user',
+                sex: 'man',
+                address: '上海'
+            }
+            res.end(JSON.stringify(data))
+            client.close();
+        });
       });
 })
 
