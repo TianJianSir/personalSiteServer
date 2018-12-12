@@ -16,13 +16,9 @@ router.get('/',function(req,res){
        
         db.collection("user"). find({}).toArray(function(err, result) { // 返回集合中所有数据
             if (err) throw err;
-            console.log(result);
-            let data = {
-                username: 'this is user',
-                sex: 'man',
-                address: '上海'
-            }
-            res.end(JSON.stringify(data))
+            console.log(typeof result)
+            
+            res.end(result)
             client.close();
         });
       });
