@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+let bodyParser = require('body-parser');
 var routes = require('./routes/index')
 
 // 设置端口
@@ -9,6 +10,8 @@ app.use("*", function(request, response, next) {
     response.writeHead(200, { "Content-Type": "application/json;charset=utf-8" });
     next();
 });
+
+app.use(bodyParser.urlencoded({extended: false}))
 
 routes(app)
 

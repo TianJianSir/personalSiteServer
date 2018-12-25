@@ -8,36 +8,50 @@ const url = "mongodb://localhost:27017";
 // Database Name
 const dbName = "blogs";
 
-// 查询
-router.get("/", function(req, res) {
+// 登陆
+router.put("/", function(req, res) {
+    console.log('收到了put请求')
   MongoClient.connect(
     url,
     function(err, client) {
       console.log("Connected successfully to server");
-
       const db = client.db(dbName);
+      const {name,password} = req.query
+      console.log('name----',name)
+      console.log('password---',password)
+      console.log(req.body.name)
 
       db.collection("user")
-        .find({})
+        .find({name,password})
         .toArray(function(err, result) {
-          // 返回集合中所有数据
           if (err) throw err;
+          if(result.length === 1){
+                let success = {
+                    ret: 0,
+                    message: 'success'
+                }
+                res.end(JSON.stringify(success));
+          }else{
+            let fail = {
+                ret: -1,
+                message: 'fail'
+            }
+            res.end(JSON.stringify(fail));
+          }
 
-          res.end(JSON.stringify(result));
           client.close();
         });
     }
   );
 });
 
-// 登录
-router.put("/",function(req,res){
-    console.log("收到了put请求");
-})
-
 // 注册
 router.post("/", function(req, res) {
   console.log("收到了post请求");
+  const {name,password} = req.query
+  console.log('name----',name)
+  console.log('password---',password)
+  console.log(req.body)
 
   MongoClient.connect(
     url,
@@ -50,21 +64,22 @@ router.post("/", function(req, res) {
         .toArray(function(err, result) {
           if (err) throw err;
           let id = result.length + 1;
-          // todo 密码编码
+
           let data = {
-            name: "",
-            password: "",
+            name: name,
+            password: password,
             id
           };
 
-          db.collection("user").insertOne(data, function(err, res) {
+          db.collection("user").insertOne(data, function(err) {
             if (err) throw err;
             console.log("文档插入成功");
             let response = {
               ret: 0,
-              message: ""
+              message: "success",
+              name: name
             };
-            res.send(JSON.stringify(response));
+            res.end(JSON.stringify(response));
             client.close();
           });
         });
