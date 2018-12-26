@@ -11,6 +11,7 @@ app.use("*", function (request, response, next) {
     next();
 });
 
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
 routes(app)

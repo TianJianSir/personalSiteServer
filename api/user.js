@@ -10,16 +10,13 @@ const dbName = "blogs";
 
 // 登陆
 router.put("/", function (req, res) {
-    console.log('收到了put请求')
+    console.log('put请求------')
     MongoClient.connect(
         url,
         function (err, client) {
-            console.log("Connected successfully to server");
+            console.log("---Connected successfully to server----");
             const db = client.db(dbName);
-            const {name, password} = req.query
-            console.log('name----', name)
-            console.log('password---', password)
-            console.log(req.body.name)
+            const {name, password} = req.body
 
             db.collection("user")
                 .find({name, password})
@@ -47,11 +44,8 @@ router.put("/", function (req, res) {
 
 // 注册
 router.post("/", function (req, res) {
-    console.log("收到了post请求");
-    const {name, password} = req.query
-    console.log('name----', name)
-    console.log('password---', password)
-    console.log(req.body)
+    console.log("post请求----");
+    const {name, password} = req.body
 
     MongoClient.connect(
         url,
