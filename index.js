@@ -4,10 +4,10 @@ let bodyParser = require('body-parser');
 var routes = require('./routes/index')
 
 // 设置端口
-app.set('port', (process.env.PORT || 9090));
+app.set('port', (process.env.PORT || 7000));
 // 设置响应头
 app.use("*", function (request, response, next) {
-    response.writeHead(200, {"Content-Type": "application/json;charset=utf-8"});
+    // response.writeHead(200, {"Content-Type": "application/json;charset=utf-8"});
     next();
 });
 

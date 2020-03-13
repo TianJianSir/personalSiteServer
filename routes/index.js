@@ -3,7 +3,7 @@ module.exports = function (app) {
     app.use('/api/user', user)
 
     let post = require('../api/post')
-    app.use('/api/post', post)
+    app.use('/api/list', post)
 
     let token = require('../api/token')
     app.use('/api/token', token)
