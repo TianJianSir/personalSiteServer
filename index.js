@@ -18,7 +18,7 @@ app.use(/^\/site(\/\d+\.\d+.\d+)?/, function(req,...args){
     if(/^\/site\/\d+\.\d+.\d+/.test(req.baseUrl)){
         var position = req.baseUrl.indexOf('/',1)
         var version = req.baseUrl.slice(position+1)
-        const staticPath = path.join(__dirname, '../siteStatic/', version)
+        const staticPath = path.resolve('/root/code/site/', version)
         express.static(staticPath)(req,...args)
     }else{
         // 从配置文件中读取当前的版本
@@ -26,7 +26,7 @@ app.use(/^\/site(\/\d+\.\d+.\d+)?/, function(req,...args){
             const Obj = JSON.parse(data)
             var version = Obj.site
 
-            const staticPath = path.join(__dirname, '../siteStatic/', version)
+            const staticPath = path.resolve('/root/code/site/', version)
             express.static(staticPath)(req,...args)
         })
     }
