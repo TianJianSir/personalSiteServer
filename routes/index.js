@@ -7,7 +7,4 @@ module.exports = function (app) {
 
     let token = require('../api/token')
     app.use('/api/token', token)
-
-    let site = require('../api/site')
-    app.use('/site', site)
 }
